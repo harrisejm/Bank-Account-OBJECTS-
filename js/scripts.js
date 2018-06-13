@@ -4,7 +4,7 @@ $(document).ready(function(){
     this.initialDeposit = initialDeposit;
     this.arr = [];
     this.calc = function() {
-      return this.initialDeposit + this.arr[0].deposit-this.arr[0].withdrawl;
+      return this.arr[0].deposit-this.arr[0].withdrawl;
     }
   }
 
@@ -17,6 +17,7 @@ $(document).ready(function(){
 
 var name;
 var initialDeposit;
+
 $("form#formOne").submit(function(event) {
  event.preventDefault();
 
@@ -26,7 +27,7 @@ if (isNaN(initialDeposit)) {
   initialDeposit = 0;
 }
 $("#formOne").hide();
-document.getElementById("test").innerHTML = "Hi " + name + " your initial balance is: " +initialDeposit;
+document.getElementById("test").innerHTML = "Hi " + name + " your initial balance is: " + initialDeposit;
 
  $(".initial-hide").show();
 });
@@ -34,24 +35,27 @@ document.getElementById("test").innerHTML = "Hi " + name + " your initial balanc
 $("form#formOne1").submit(function(event) {
  event.preventDefault();
 
+
+
 var deposit = parseInt($("input#deposit").val());
 if (isNaN(deposit))  {
   deposit = 0;
 }
+//total += deposit;
 var withdrawl = parseInt($("input#withdrawl").val());
 if (isNaN(withdrawl))  {
   withdrawl = 0;
 }
-
+//total -= withdrawl;
 
 var firstTransaction = new transaction(name, initialDeposit);
 var fistAmmount = new transAmmount(deposit, withdrawl);
 
 firstTransaction.arr.push(fistAmmount);
+initialDeposit += firstTransaction.calc()
 
 
-
-document.getElementById("test").innerHTML = "Hi " + firstTransaction.name + " you now have a balance of: " + firstTransaction.calc();
+document.getElementById("test").innerHTML = "Hi " + firstTransaction.name + " you now have a balance of: " + initialDeposit;
 
 });
 
